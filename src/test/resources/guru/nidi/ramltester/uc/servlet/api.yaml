@@ -1,0 +1,26 @@
+#%RAML 0.8
+---
+title: simple
+baseUri: http://guru.nidi/raml/simple/{version}
+version: v1
+
+/greeting:
+  get:
+    queryParameters:
+      name:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+              {
+                "type":"object",
+                "properties": {
+                  "id":{
+                    "type":"integer"
+                  },
+                  "content":{
+                    "type":"string"
+                  }
+                }
+              }
