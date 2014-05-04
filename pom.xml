@@ -83,7 +83,7 @@
     <repositories>
         <repository>
             <id>nidi</id>
-            <url>https://rawgithub.com/nidi3/maven-repo/master/repo/releases/</url>
+            <url>https://rawgit.com/nidi3/maven-repo/master/repo/releases/</url>
         </repository>
     </repositories>
 
