@@ -58,7 +58,7 @@
         <dependency>
             <groupId>guru.nidi.raml</groupId>
             <artifactId>raml-tester</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.3</version>
         </dependency>
 
         <dependency>
@@ -111,18 +111,6 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>nidi</id>
-            <url>https://rawgit.com/nidi3/maven-repo/master/repo/releases/</url>
-        </repository>
-        <repository>
-            <id>nidi snapshots</id>
-            <url>https://rawgit.com/nidi3/maven-repo/master/repo/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+
 
 </project>

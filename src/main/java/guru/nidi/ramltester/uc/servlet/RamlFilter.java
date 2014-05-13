@@ -16,7 +16,6 @@
 package guru.nidi.ramltester.uc.servlet;
 
 import guru.nidi.ramltester.RamlDefinition;
-import guru.nidi.ramltester.TestRaml;
 import guru.nidi.ramltester.core.RamlReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ public class RamlFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        api = TestRaml.load("api.yaml").fromClasspath(getClass());
+        api = RamlDefinition.load("api.yaml").fromClasspath(getClass());
     }
 
     @Override
