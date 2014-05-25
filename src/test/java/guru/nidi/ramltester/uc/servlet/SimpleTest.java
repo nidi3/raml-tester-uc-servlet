@@ -47,7 +47,7 @@ public class SimpleTest {
         SLF4JBridgeHandler.install();
 
         tomcat = new Tomcat();
-        tomcat.setPort(8080);
+        tomcat.setPort(8081);
         tomcat.setBaseDir(".");
         Context ctx = tomcat.addWebapp("/", "src/main/webapp");
         ((Host) ctx.getParent()).setAppBase("");
