@@ -68,10 +68,10 @@ public class SimpleTest {
 
     @Test
     public void request() throws IOException {
-        send("http://localhost:8080/greetings");
-        send("http://localhost:8080/greeting");
-        send("http://localhost:8080/greeting?name=ddd");
-        send("http://localhost:8080/greeting?name=ddd&param=bla");
+        send("http://localhost:8081/greetings");
+        send("http://localhost:8081/greeting");
+        send("http://localhost:8081/greeting?name=ddd");
+        send("http://localhost:8081/greeting?name=ddd&param=bla");
     }
 
     private void send(String request) throws IOException {

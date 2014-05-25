@@ -34,7 +34,10 @@ public class RamlFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        api = RamlTester.fromClasspath(getClass()).load("api.yaml");
+        api = RamlTester
+                .fromClasspath(getClass())
+                .load("api.yaml")
+                .assumingServletUri("http://guru.nidi/raml/simple/v1");
     }
 
     @Override
