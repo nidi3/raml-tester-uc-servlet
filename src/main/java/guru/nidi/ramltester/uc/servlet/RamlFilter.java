@@ -16,7 +16,7 @@
 package guru.nidi.ramltester.uc.servlet;
 
 import guru.nidi.ramltester.RamlDefinition;
-import guru.nidi.ramltester.RamlTester;
+import guru.nidi.ramltester.RamlLoaders;
 import guru.nidi.ramltester.core.RamlReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +34,10 @@ public class RamlFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        api = RamlTester
+        api = RamlLoaders
                 .fromClasspath(getClass())
                 .load("api.yaml")
-                .assumingServletUri("http://guru.nidi/raml/simple/v1");
+                .assumingBaseUri("http://guru.nidi/raml/simple/v1");
     }
 
     @Override
