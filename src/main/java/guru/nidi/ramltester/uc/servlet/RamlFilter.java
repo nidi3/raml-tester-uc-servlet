@@ -42,8 +42,12 @@ public class RamlFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        final RamlReport report = api.testAgainst(request, response, chain);
-        log.info("Raml report: " + report);
+        if (request.getParameter("nofilter") != null) {
+            chain.doFilter(request, response);
+        } else {
+            final RamlReport report = api.testAgainst(request, response, chain);
+            log.info("Raml report: " + report);
+        }
     }
 
     @Override

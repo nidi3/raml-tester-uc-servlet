@@ -8,6 +8,7 @@ version: v1
   get:
     queryParameters:
       name:
+      nofilter:
     responses:
       200:
         body:
