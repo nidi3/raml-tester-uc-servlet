@@ -52,6 +52,5 @@ public class RamlFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

@@ -15,18 +15,23 @@
  */
 package guru.nidi.ramltester.uc.servlet;
 
-import guru.nidi.ramltester.RamlDefinition;
 import guru.nidi.ramltester.RamlLoaders;
+import guru.nidi.ramltester.SimpleReportAggregator;
+import guru.nidi.ramltester.core.Usage;
+import guru.nidi.ramltester.core.UsageItem;
 import guru.nidi.ramltester.httpcomponents.RamlHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.EnumSet;
+
+import static guru.nidi.ramltester.core.UsageItem.*;
 
 /**
  *
@@ -34,34 +39,36 @@ import java.io.IOException;
 public class HttpComponentsTest extends ServerTest {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private RamlDefinition api;
-
-    @Before
-    public void init() {
-        api = RamlLoaders
-                .fromClasspath(getClass())
-                .load("api.yaml")
-                .assumingBaseUri("http://guru.nidi/raml/simple/v1");
-    }
+    private static RamlHttpClient baseClient = RamlLoaders
+            .fromClasspath(HttpComponentsTest.class)
+            .load("api.yaml")
+            .assumingBaseUri("http://guru.nidi/raml/simple/v1")
+            .createHttpClient();
 
     @Test
     public void testRequestAndResponse() throws IOException {
-        final RamlHttpClient client = api.createHttpClient();
+        final SimpleReportAggregator aggregator = new SimpleReportAggregator();
+        final RamlHttpClient client = baseClient.aggregating(aggregator);
 
         send(client, "http://localhost:8081/greetings?nofilter");
         send(client, "http://localhost:8081/greeting?nofilter");
         send(client, "http://localhost:8081/greeting?nofilter&name=ddd");
         send(client, "http://localhost:8081/greeting?nofilter&name=ddd&param=bla");
+
+        assertUsage(aggregator.getUsage(), EnumSet.allOf(UsageItem.class));
     }
 
     @Test
     public void testRequestOnly() throws IOException {
-        final RamlHttpClient client = api.createHttpClient().notSending();
+        final SimpleReportAggregator aggregator = new SimpleReportAggregator();
+        final RamlHttpClient client = baseClient.notSending().aggregating(aggregator);
 
         send(client, "http://localhost:8081/greetings?nofilter");
         send(client, "http://localhost:8081/greeting?nofilter");
         send(client, "http://localhost:8081/greeting?nofilter&name=ddd");
         send(client, "http://localhost:8081/greeting?nofilter&name=ddd&param=bla");
+
+        assertUsage(aggregator.getUsage(), EnumSet.of(RESOURCE, ACTION, QUERY_PARAMETER));
     }
 
     private void send(RamlHttpClient client, String request) throws IOException {
@@ -70,5 +77,11 @@ public class HttpComponentsTest extends ServerTest {
         final HttpResponse response = client.execute(get);
         log.info("Result:      " + response.getStatusLine() + (response.getEntity() == null ? "" : EntityUtils.toString(response.getEntity())));
         log.info("Raml report: " + client.getLastReport());
+    }
+
+    private void assertUsage(Usage usage, EnumSet<UsageItem> usageItems) {
+        for (UsageItem usageItem : usageItems) {
+            Assert.assertEquals(usageItem.name(), 0, usageItem.get(usage).size());
+        }
     }
 }
