@@ -4,61 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>guru.nidi</groupId>
+        <artifactId>guru-nidi-parent-pom</artifactId>
+        <version>1.0.5</version>
+    </parent>
 
     <groupId>guru.nidi.raml</groupId>
     <artifactId>raml-tester-uc-servlet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
-                    <excludes>
-                        <exclude>*</exclude>
-                        <exclude>target/**</exclude>
-                        <exclude>.idea/**</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                        <exclude>src/main/webapp/**</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                    </excludes>
-                    <mapping>
-                        <java>SLASHSTAR_STYLE</java>
-                    </mapping>
-                    <strictCheck>true</strictCheck>
-                    <properties>
-                        <owner>Stefan Niederhauser</owner>
-                        <email>nidin@gmx.ch</email>
-                    </properties>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>guru.nidi.raml</groupId>
             <artifactId>raml-tester</artifactId>
-            <version>0.0.7</version>
+            <version>0.8.5-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -71,14 +32,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
-            <version>1.7.7</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
@@ -110,7 +69,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
 
 </project>
