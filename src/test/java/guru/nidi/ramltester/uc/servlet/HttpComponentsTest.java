@@ -1,5 +1,5 @@
 /*
- * Copyright (C) ${project.inceptionYear} Stefan Niederhauser (nidin@gmx.ch)
+ * Copyright (C) 2014 Stefan Niederhauser (nidin@gmx.ch)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import guru.nidi.ramltester.httpcomponents.RamlHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
-import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,7 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import static guru.nidi.ramltester.core.UsageItem.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -41,7 +41,7 @@ public class HttpComponentsTest extends ServerTest {
 
     private static RamlHttpClient baseClient = RamlLoaders
             .fromClasspath(HttpComponentsTest.class)
-            .load("api.yaml")
+            .load("api.raml")
             .assumingBaseUri("http://guru.nidi/raml/simple/v1")
             .createHttpClient();
 
@@ -81,7 +81,7 @@ public class HttpComponentsTest extends ServerTest {
 
     private void assertUsage(Usage usage, EnumSet<UsageItem> usageItems) {
         for (UsageItem usageItem : usageItems) {
-            Assert.assertEquals(usageItem.name(), 0, usageItem.get(usage).size());
+            assertEquals(usageItem.name(), 0, usageItem.get(usage).size());
         }
     }
 

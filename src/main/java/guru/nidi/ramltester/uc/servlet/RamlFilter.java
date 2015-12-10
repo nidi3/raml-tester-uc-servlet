@@ -1,5 +1,5 @@
 /*
- * Copyright (C) ${project.inceptionYear} Stefan Niederhauser (nidin@gmx.ch)
+ * Copyright (C) 2014 Stefan Niederhauser (nidin@gmx.ch)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class RamlFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         api = RamlLoaders
                 .fromClasspath(getClass())
-                .load("api.yaml")
+                .load("api.raml")
                 .assumingBaseUri("http://guru.nidi/raml/simple/v1");
     }
 
